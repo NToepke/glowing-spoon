@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Welcome Page</title>
+        <script src="jslibs/jquery-2.1.4.min.js"></script>
+        <script src="navBar.js"></script>
+        <link href="navBar.css" rel="stylesheet" type="text/css">
+        <style>
+            body{
+                background-color: dodgerblue;
+            }
+            #searchMenu{
+                margin: auto;
+                width: 80%;
+                border: 3px solid green;
+                padding: 10px;
+                margin-top: 20%;
+                text-align: center;
+                font-size: 3em;
+                font-weight: bold;
+                
+            }
+            #searchMenu input[type=text]{
+                font-size: .75em;
+                color: black;
+                text-align: center;
+                border: 2px solid black;
+            }
+            #searchMenu button{
+                color: black;
+                background-color: green;
+                font-size: .75em;
+            }
+            #buttonImage{
+                width: 100%;
+                max-width: 25em;
+                max-height: 25em;
+                margin-top: 2em;
+                position: fixed;
+                right: 0;
+                bottom: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="searchMenu">
+            <label for="searchBar"><i>Welcome to Blood Bank Database!!</i></label><br>
+            <input type='text' id='searchBar' name='searchBar' placeholder='Search'>
+            <button type='submit' onclick="checkSearch()">Submit</button>
+        </div>
+        <!-- Image retrieved from: 
+             https://imgflip.com/s/meme/Blank-Nut-Button.jpg --> 
+        <img id="buttonImage" src="buttonChop.jpg" alt="Button Chop Meme">
+    </body>
+    <script>
+        function checkSearch(){
+            var searchResult = $("#searchMenu input[type=text]").val();
+            var searchResult = searchResult.toLowerCase();
+            if(searchResult.localeCompare("insert") == 0){
+                window.location.href = "insert.html";
+            }
+            else if(searchResult.localeCompare("delete") == 0){
+                window.location.href = "delete.html";
+            }
+            else if(searchResult.localeCompare("modify") == 0){
+                window.location.href = "modify.html";
+            }
+            else if(searchResult.localeCompare("queries") == 0){
+                window.location.href = "queries.html";
+            }
+            else{
+                alert("No search results found. The only acceptable actions are 'Insert', 'Delete', 'Modify', and 'Queries'!");
+            }
+        }
+    </script>
+</html>

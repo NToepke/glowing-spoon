@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Modify Page</title>
+        <script src="jslibs/jquery-2.1.4.min.js"></script>
+        <script src="navBar.js"></script>
+        <link href="navBar.css" rel="stylesheet" type="text/css">
+        <style>
+            body{
+                background-color: red;
+            }
+            h1{
+                text-align: center;
+                margin-top: 1em;
+                font-size: 4em;
+                text-decoration: underline;
+            }
+            #modifyChoice{
+                margin: auto;
+                width: 60%;
+                border: 3px solid gray;
+                padding: 10px;
+                margin-top: 1em;
+                text-align: center;
+                font-size: 1em;
+                font-weight: bold;
+                background-color: gray;
+            }
+            #modifyChoice button{
+                background-color: white;
+            }
+            #inputField{
+                width: 100%;
+                background-color: white;
+                height: 200px;
+                text-align: center;
+            }
+            #resultField{
+                width: 100%;
+                background-color: gray;
+                height: 250px;
+                text-align: center;
+            }
+            #velociraptor{
+                height: 10em;
+                width: 10em;
+                float: left;
+                margin-left: 2em;
+            }
+            .clear:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Modification</h1>
+        <div id="modifyChoice">
+            <label for="modifier">Choose What To Modify:</label>
+            <select id="modifier" name="modifier">
+                <option value="medicalData">Medical Data</option>
+            </select>
+            <button type='submit' onclick="fillInput()">Submit</button>
+        </div>
+        <div id="inputField">
+            <h2 id="inputText">You Have Not Selected a Function Yet</h2>
+        </div>
+        <div id="resultField">
+            <h2>Results:</h2>
+            <!-- Image retrieved from:
+                 https://i.pinimg.com/originals/32/8c/cb/328ccb3a21f07e9294f72b995fe927bc.jpg --> 
+            <img src="velociraptor.jpg" alt="velociraptor" id="velociraptor">
+            <div id="resultTextBox">
+                <h3 id="resultText">No Results to Display Currently</h3>
+            </div>
+        </div>
+    </body>
+    <script>
+        function fillInput(){
+            var modifyValue = $("#modifyChoice select").val();
+            document.getElementById("inputText").remove();
+            if(modifyValue.localeCompare("medicalData") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The Edit_Medical_Data Function</h2><form name='modifyForm' action='modify.php' method='POST'><label for='personID'>Person ID*:</label><input type='number' id='personID' name='personID' placeholder='67676767' max='99999999' required><br><label for='data'>Updated Medical Data:</label><input type='text' id='data' name='data' placeholder='HIV' maxlength='250' required><br><input type='submit' name='subButton' value='editData' onclick='fillResult()'></form>");
+            }
+        }
+        function fillResult(){
+            document.getElementById("velociraptor").remove();
+            document.getElementById("resultText").remove();
+            
+        }
+    </script>
+</html>

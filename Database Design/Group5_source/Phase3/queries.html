@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Queries and Aggregation Page</title>
+        <script src="jslibs/jquery-2.1.4.min.js"></script>
+        <script src="navBar.js"></script>
+        <link href="navBar.css" rel="stylesheet" type="text/css">
+        <style>
+            body{
+                background-color: red;
+            }
+            h1{
+                text-align: center;
+                margin-top: 1em;
+                font-size: 4em;
+                text-decoration: underline;
+            }
+            #queryAndAggregateChoice{
+                margin: auto;
+                width: 60%;
+                border: 3px solid gray;
+                padding: 10px;
+                margin-top: 1em;
+                text-align: center;
+                font-size: 1em;
+                font-weight: bold;
+                background-color: gray;
+            }
+            #queryAndAggregateChoice button{
+                background-color: white;
+            }
+            #inputField{
+                width: 100%;
+                background-color: white;
+                height: 200px;
+                text-align: center;
+            }
+            #resultField{
+                width: 100%;
+                background-color: gray;
+                height: 250px;
+                text-align: center;
+            }
+            #velociraptor{
+                height: 10em;
+                width: 10em;
+                float: left;
+                margin-left: 2em;
+            }
+            .clear:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Queries and Aggregation</h1>
+        <div id="queryAndAggregateChoice">
+            <label for="queryAndAggregation">Choose What To Query/:</label>
+            <select id="queryAndAggregation" name="queryAndAggregation">
+                <option value="mostDonated">Most Donated</option>
+                <option value="displayReminder">Display Reminder</option>
+                <option value="totalDonors">Total Donors</option>
+                <option value="averageDonations">Average Donations</option>
+                <option value="displayTrackingNo">Display Tracking Number</option>
+                <option value="displayRecentDonations">Display Recent Donations</option>
+                <option value="possibleDonors">Possible Donors</option>
+                <option value="possibleRecipients">Possible Recipients</option>
+                <option value="findContact">Find Emergency Contact</option>
+                <option value="findActiveSites">Find Active Donation Sites</option>
+                <option value="displayDonors">Display Donors From State</option>
+            </select>
+            <button type='submit' onclick="fillInput()">Submit</button>
+        </div>
+        <div id="inputField">
+            <h2 id="inputText">You Have Not Selected a Function Yet</h2>
+        </div>
+        <div id="resultField">
+            <h2>Results:</h2>
+            <!-- Image retrieved from:
+                 https://i.pinimg.com/originals/32/8c/cb/328ccb3a21f07e9294f72b995fe927bc.jpg --> 
+            <img src="velociraptor.jpg" alt="velociraptor" id="velociraptor">
+            <div id="resultTextBox">
+                <h3 id="resultText">No Results to Display Currently</h3>
+            </div>
+        </div>
+    </body>
+    <script>
+        function fillInput(){
+            var queryAndAggregateValue = $("#queryAndAggregateChoice select").val();
+            document.getElementById("inputText").remove();
+            if(queryAndAggregateValue.localeCompare("mostDonated") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The Most_Donated Function</h2><form name='mostDonatedForm' action='queries.php' method='POST'><h5>No input required. Just press the submit button when ready!</h5><br><input type='submit' name='subButton' value='mostDonated' onclick='fillResult()'></form>");
+            }
+            if(queryAndAggregateValue.localeCompare("displayReminder") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The Display_Reminder_List Function</h2><form name='displayReminderForm' action='queries.php' method='POST'><label for='date'>Specified Date*:</label><input type='date' id='date' name='date' placeholder='04/04/2021' required><br><input type='submit' name='subButton' value='displayReminder' onclick='fillResult()'></form>");
+            }
+            if(queryAndAggregateValue.localeCompare("totalDonors") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The Total_Number_of_Donors Function</h2><form name='totalDonorsForm' action='queries.php' method='POST'><h5>No input required. Just press the submit button when ready!</h5><br><input type='submit' name='subButton' value='totalDonors' onclick='fillResult()'></form>");
+            }
+            if(queryAndAggregateValue.localeCompare("averageDonations") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The Average_Number_Donations Function</h2><form name='averageDonorsForm' action='queries.php' method='POST'><h5>No input required. Just press the submit button when ready!</h5><br><input type='submit' name='subButton' value='averageDonors' onclick='fillResult()'></form>");
+            }
+            if(queryAndAggregateValue.localeCompare("displayTrackingNo") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The Display_Tracking_Number Function</h2><form name='trackingForm' action='queries.php' method='POST'><label for='personID'>Person ID*:</label><input type='number' id='personID' name='personID' placeholder='34343434' max='99999999' required><br><input type='submit' name='subButton' value='tracking' onclick='fillResult()'></form>");
+            }
+            if(queryAndAggregateValue.localeCompare("displayRecentDonations") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The Display_Most_Recent_Donations Function</h2><form name='mostRecentForm' action='queries.php' method='POST'><label for='days'>Number of Days*:</label><input type='number' id='days' name='days' placeholder='6' required><br><label for='siteID'>Site ID:</label><input type='number' id='siteID' name='siteID' placeholder='0101' max='9999'><br><input type='submit' name='subButton' value='mostRecent' onclick='fillResult()'></form>");
+            }
+            if(queryAndAggregateValue.localeCompare("possibleDonors") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The Find_Possible_Donors Function</h2><form name='possibleDonorsForm' action='queries.php' method='POST'><label for='personID'>Person ID:</label><input type='number' id='personID' name='personID' placeholder='09876543' max='99999999'><br><label for='bloodGroup'>Blood Group:</label><input type='text' id='bloodGroup' name='bloodGroup' placeholder='O-' maxlength='3'><br><input type='submit' name='subButton' value='possibleDonors' onclick='fillResult()'></form>");
+            }
+            if(queryAndAggregateValue.localeCompare("possibleRecipients") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The Find_Possible_Recipients Function</h2><form name='possibleRecipientsForm' action='queries.php' method='POST'><label for='personID'>Person ID:</label><input type='number' id='personID' name='personID' placeholder='98989898' max='99999999'><br><label for='bloodGroup'>Blood Group:</label><input type='text' id='bloodGroup' name='bloodGroup' placeholder='AB+' maxlength='3'><br><input type='submit' name='subButton' value='possibleRecipients' onclick='fillResult()'></form>");
+            }
+            if(queryAndAggregateValue.localeCompare("findContact") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The Find_Emergency_Contact Function</h2><form name='findContactForm' action='queries.php' method='POST'><label for='personID'>Person ID*:</label><input type='number' id='personID' name='personID' placeholder='12345123' max='99999999' required><br><input type='submit' name='subButton' value='findContact' onclick='fillResult()'></form>");
+            }
+            if(queryAndAggregateValue.localeCompare("findActiveSites") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The Display_Active_Donation_Sites Function</h2><form name='findActiveSitesForm' action='queries.php' method='POST'><h5>No input required. Just press the submit button when ready!</h5><br><input type='submit' name='subButton' value='findActiveSites' onclick='fillResult()'></form>");
+            }
+            if(queryAndAggregateValue.localeCompare("displayDonors") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The Display_Donors_From_State Function</h2><form name='displayDonorsForm' action='queries.php' method='POST'><label for='state'>State*:</label><input type='text' id='state' name='state' placeholder='Missouri' maxlength='20' required><br><input type='submit' name='subButton' value='displayDonors' onclick='fillResult()'></form>");
+            }
+            
+        }
+        function fillResult(){
+            document.getElementById("velociraptor").remove();
+            document.getElementById("resultText").remove();
+           
+        }
+    </script>
+</html>

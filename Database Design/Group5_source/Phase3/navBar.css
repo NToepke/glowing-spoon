@@ -1,0 +1,41 @@
+#navBar {
+    width: 100%;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+.publicPages{
+    font-size: 1.5em;
+    color: black;
+}
+#navBar a,span{
+    float: left;
+    text-decoration: none;
+    text-align: center;
+    padding: .25em;
+    padding-left: .75em;
+    padding-right: .75em;
+}
+.pageLabel{
+    font-size: 2.0em;
+    color: black;
+    padding: 0;
+    padding-left: .75em;
+    padding-right: .75em;
+}
+#navBar a:hover {
+    background-color: red;
+    color: white;
+}
+.current {
+    background-color: dodgerblue;
+    color: white;
+}
+.clear:after {
+    content: "";
+    display: table;
+    clear: both;
+}

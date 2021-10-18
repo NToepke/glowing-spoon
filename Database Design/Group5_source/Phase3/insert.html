@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Insert Page</title>
+        <script src="jslibs/jquery-2.1.4.min.js"></script>
+        <script src="navBar.js"></script>
+        <link href="navBar.css" rel="stylesheet" type="text/css">
+        <style>
+            body{
+                background-color: red;
+            }
+            h1{
+                text-align: center;
+                margin-top: 1em;
+                font-size: 4em;
+                text-decoration: underline;
+            }
+            #insertChoice{
+                margin: auto;
+                width: 60%;
+                border: 3px solid gray;
+                padding: 10px;
+                margin-top: 1em;
+                text-align: center;
+                font-size: 1em;
+                font-weight: bold;
+                background-color: gray;
+            }
+            #insertChoice button{
+                background-color: white;
+            }
+            #inputField{
+                width: 100%;
+                background-color: white;
+                height: 200px;
+                text-align: center;
+            }
+            #resultField{
+                width: 100%;
+                background-color: gray;
+                height: 250px;
+                text-align: center;
+            }
+            #velociraptor{
+                height: 10em;
+                width: 10em;
+                float: left;
+                margin-left: 2em;
+            }
+            .clear:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Insertion</h1>
+        <div id="insertChoice">
+            <label for="inserts">Choose What To Insert:</label>
+            <select id="inserts" name="inserts">
+                <option value="bank">Bank</option>
+                <option value="donationSite">Donation Site</option>
+                <option value="donor">Donor</option>
+                <option value="patient">Patient</option>
+            </select>
+            <button type='submit' onclick="fillInput()">Submit</button>
+        </div>
+        <div id="inputField">
+            <h2 id="inputText">You Have Not Selected a Function Yet</h2>
+        </div>
+        <div id="resultField">
+            <h2>Results:</h2>
+            <!-- Image retrieved from:
+                 https://i.pinimg.com/originals/32/8c/cb/328ccb3a21f07e9294f72b995fe927bc.jpg --> 
+            <img src="velociraptor.jpg" alt="velociraptor" id="velociraptor">
+            <div id="resultTextBox">
+                <h3 id="resultText">No Results to Display Currently</h3>
+            </div>
+        </div>
+    </body>
+    <script>
+        function fillInput(){
+            var insertValue = $("#insertChoice select").val();
+            document.getElementById("inputText").remove();
+            if(insertValue.localeCompare("bank") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The New_Bank Function</h2><form name='insertBankForm' action='insert.php' method='POST'><label for='bankName'>Bank Name*:</label><input type='text' id='bankName' name='bankName' placeholder='Bank' maxlength='20' required><br><label for='bankAddress'>Bank Address*:</label><input type='text' id='bankAddress' name='bankAddress' placeholder='123 Sesame Street' maxlength='50' required><br><label for='bankPhone'>Bank Phone Number*:</label><input type='text' id='bankPhone' name='bankPhone' placeholder='888-888-8888' maxlength='14' required><br><label for='manager'>Manager Name:</label><input type='text' id='manager' name='manager' placeholder='Mr. Smith' maxlength='25'><br><label for='siteID'>Site ID*:</label><input type='number' id='siteID' name='siteID' placeholder='9898' max='9999' required><br><input type='submit' name='subButton' value='insertBank' onclick='fillResult()'></form>");
+            }
+            if(insertValue.localeCompare("donationSite") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The New_Donation_Site Function</h2><form name='insertDonationSiteForm' action='insert.php' method='POST'><label for='siteID'>Site ID*:</label><input type='number' id='siteID' name='siteID' placeholder='2345' max='9999' required><br><label for='address'>Location Address*:</label><input type='text' id='address' name='address' placeholder='123 Sesame Street' maxlength='50' required><br><label for='name'>Location Name*:</label><input type='text' id='name' name='name' placeholder='Give Me Blood Inc.' maxlength='25' required><br><label for='startDate'>Collection Start Date*:</label><input type='date' id='startDate' name='startDate' placeholder='01/01/2021' required><br><label for='endDate'>Collection End Date*:</label><input type='date' id='endDate' name='endDate' placeholder='12/31/2021' required><br><label for='bankName'>Bank Name*:</label><input type='text' id='bankName' name='bankName' placeholder='Bank' maxlength='20' required><br><input type='submit' name='subButton' value='insertDonationSite' onclick='fillResult()'></form>");
+            }
+            if(insertValue.localeCompare("donor") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The New_Donor Function</h2><form name='insertDonorForm' action='insert.php' method='POST'><label for='donorFName'>Donor First Name*:</label><input type='text' id='donorFName' name='donorFName' placeholder='John' maxlength='25' required><label for='donorMName'>Donor Middle Name:</label><input type='text' id='donorMName' name='donorMName' placeholder='M' maxlength='25'><label for='donorLName'>Donor Last Name*:</label><input type='text' id='donorLName' name='donorLName' placeholder='Doe' maxlength='25' required><br><label for='donorID'>Person ID*:</label><input type='number' id='donorID' name='donorID' placeholder='12345678' max='999999999' required><label for='bloodGroup'>Blood Group*:</label><input type='text' id='bloodGroup' name='bloodGroup' placeholder='O-' maxlength='3' required><label for='medicalData'>Medical Data:</label><input type='text' id='medicalData' name='medicalData' placeholder='ADHD' maxlength='250'><label for='donorPhone'>Donor Phone Number*:</label><input type='text' id='donorPhone' name='donorPhone' placeholder='111-111-1111' maxlength='14' required><br><label for='donorAddress'>Donor Address*:</label><input type='text' id='donorAddress' name='donorAddress' placeholder='444 Maple Park Dr.' maxlength='50' required><label for='donorCity'>Donor City*:</label><input type='text' id='donorCity' name='donorCity' placeholder='Columbia' maxlength='30' required><label for='donorState'>Donor State*:</label><input type='text' id='donorState' name='donorState' placeholder='Missouri' maxlength='20' required><label for='donorZipcode'>Donor Zipcode*:</label><input type='number' id='donorZipcode' name='donorZipcode' placeholder='54321' max='99999' required><br><label for='donationDate'>Donation Date*:</label><input type='date' id='donationDate' name='donationDate' placeholder='04/14/2021' required><label for='siteID'>Site ID*:</label><input type='number' id='siteID' name='siteID' placeholder='1234' max='9999' required><br><label for='emergencyName'>Contact Name*:</label><input type='text' id='emergencyName' name='emergencyName' placeholder='Father Doe' maxlength='25' required><label for='emergencyNumber'>Contact Phone Number*:</label><input type='text' id='emergencyNumber' name='emergencyNumber' placeholder='999-999-9999' maxlength='14' required><label for='relation'>Relationship:</label><input type='text' id='relation' name='relation' placeholder='Father' maxlength='20'><br><label for='emergencyAddress'>Contact Address*:</label><input type='text' id='emergencyAddress' name='emergencyAddress' placeholder='789 Tiger Ct.' maxlength='50' required><label for='emergencyCity'>Contact City*:</label><input type='text' id='emergencyCity' name='emergencyCity' placeholder='Columbia' maxlength='30' required><label for='emergencyState'>Contact State*:</label><input type='text' id='emergencyState' name='emergencyState' placeholder='Missouri' maxlength='20' required><label for='emergencyZipcode'>Contact Zipcode*:</label><input type='number' id='emergencyZipcode' name='emergencyZipcode' placeholder='67890' max='99999' required><br><input type='submit' name='subButton' value='insertDonor' onclick='fillResult()'></form>");
+            }
+            if(insertValue.localeCompare("patient") == 0){
+                $("#inputField").html("<h2 id='inputText'>You Have Selected The New_Patient Function</h2><form name='insertPatientForm' action='insert.php' method='POST'><label for='patientID'>Person ID*:</label><input type='number' id='patientID' name='patientID' placeholder='12345678' max='99999999' required><br><label for='bloodGroup'>Blood Group*:</label><input type='text' id='bloodGroup' name='bloodGroup' placeholder='AB+' maxlength='3' required><br><label for='fName'>Patient First Name*:</label><input type='text' id='fName' name='fName' placeholder='Jane' maxlength='25' required><label for='mName'>Patient Middle Name:</label><input type='text' id='mName' name='mName' placeholder='D' maxlength='25'><label for='lName'>Patient Last Name*:</label><input type='text' id='lName' name='lName' placeholder='Doe' maxlength='25' required><br><label for='medicalData'>Medical Data:</label><input type='text' id='medicalData' name='medicalData' placeholder='Osteoporosis' maxlength='250'><br><label for='site'>Transfusion Site*:</label><input type='text' id='site' name='site' placeholder='Basement' maxlength='50' required><br><input type='submit' name='subButton' value='insertPatient' onclick='fillResult()'></form>");
+            }
+        }
+
+        function fillResult(){
+            document.getElementById("velociraptor").remove();
+            document.getElementById("resultText").remove();
+        }
+    </script>
+</html>
